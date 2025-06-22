@@ -13,3 +13,19 @@ AGP3_MultiplayerGameMode::AGP3_MultiplayerGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 }
+
+void AGP3_MultiplayerGameMode::BeginPlay()
+{
+	if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, PowerUpTakerClass->GetFullName());
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Instigator = GetInstigator();
+
+	GetWorld()->SpawnActor<APowerUpTaker>(
+		PowerUpTakerClass,
+		SpawnLocation,
+		FRotator::ZeroRotator,
+		SpawnParams
+	);
+	if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, PowerUpTakerClass->GetFullName());
+}
